@@ -40,6 +40,7 @@ async function loadContract() {
       await provider.send("eth_requestAccounts", []);
       const network = await provider.getNetwork();
 
+      // 🚨 Ensure we're on Fuji
       if (network.chainId !== 43113) {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
@@ -83,15 +84,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
       window.location.href = "feed.html";
     } catch (error) {
-      console.error("❌ JSON-RPC Error submitting hustle:", error);
-
-      if (error?.data?.message) {
-        alert("⚠️ RPC Error: " + error.data.message);
-      } else if (error?.message) {
-        alert("❌ Error: " + error.message);
-      } else {
-        alert("Something went wrong. Check console.");
-      }
+      console.error("❌ Error submitting:", error);
+      alert("Something went wrong. See console.");
     }
   });
-});
+});  

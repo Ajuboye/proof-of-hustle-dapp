@@ -3,9 +3,9 @@ const contractAddress = "0xA7011E842Ae2dD14C61DE899B56FE45dA584faa2";
 const contractABI = [
   {
     "inputs": [
-      { "internalType": "string", "name": "_fullName", "type": "string" },
-      { "internalType": "string", "name": "_hustleType", "type": "string" },
-      { "internalType": "string", "name": "_description", "type": "string" }
+      { "internalType": "string", "name": "_name", "type": "string" },
+      { "internalType": "string", "name": "_project", "type": "string" },
+      { "internalType": "string", "name": "_link", "type": "string" }
     ],
     "name": "submitHustle",
     "outputs": [],
@@ -71,9 +71,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("hustleForm").addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const fullName = document.querySelector('input[placeholder="Your Name"]').value;
-    const hustleType = document.querySelector('input[placeholder="What are you building?"]').value;
-    const description = document.querySelector('input[placeholder="Link to demo / GitHub"]').value;
+    // Use IDs to get values
+    const name = document.getElementById("fullName").value;
+    const project = document.getElementById("hustleType").value;
+    const link = document.getElementById("description").value;
 
     if (!window.hustleContract) {
       alert("Smart contract not loaded.");
@@ -81,7 +82,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      const tx = await window.hustleContract.submitHustle(fullName, hustleType, description);
+      const tx = await window.hustleContract.submitHustle(name, project, link);
       alert("⛏️ Submitting your hustle...");
 
       await tx.wait();

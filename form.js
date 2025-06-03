@@ -42,10 +42,15 @@ async function loadContract() {
 
       // 🚨 Ensure we're on Fuji
       if (network.chainId !== 43113) {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0xa869" }],
-        });
+        try {
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0xa869" }],
+          });
+        } catch (switchError) {
+          alert("Please switch your wallet to Avalanche Fuji (chainId 43113) and try again.");
+          throw switchError;
+        }
       }
 
       const signer = provider.getSigner();
@@ -53,7 +58,7 @@ async function loadContract() {
       console.log("✅ Contract loaded successfully on Fuji");
     } catch (err) {
       console.error("❌ Failed to load contract:", err);
-      alert("Failed to load smart contract. Please reconnect your wallet.");
+      alert("Failed to load smart contract: " + (err.data?.message || err.message || err));
     }
   } else {
     alert("MetaMask not detected. Please install it.");
@@ -85,7 +90,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "feed.html";
     } catch (error) {
       console.error("❌ Error submitting:", error);
-      alert("Something went wrong. See console.");
+      alert("Error: " + (error.data?.message || error.message || error));
     }
   });
-});  
+});

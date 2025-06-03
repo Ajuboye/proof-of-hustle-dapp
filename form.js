@@ -2,6 +2,50 @@ const contractAddress = "0xA7011E842Ae2dD14C61DE899B56FE45dA584faa2";
 
 const contractABI = [
   {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "string", "name": "name", "type": "string" },
+      { "indexed": false, "internalType": "string", "name": "project", "type": "string" },
+      { "indexed": false, "internalType": "string", "name": "link", "type": "string" },
+      { "indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "name": "NewHustle",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "getHustles",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "string", "name": "name", "type": "string" },
+          { "internalType": "string", "name": "project", "type": "string" },
+          { "internalType": "string", "name": "link", "type": "string" },
+          { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+        ],
+        "internalType": "struct ProofOfHustle.Hustle[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "hustles",
+    "outputs": [
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "project", "type": "string" },
+      { "internalType": "string", "name": "link", "type": "string" },
+      { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "string", "name": "_name", "type": "string" },
       { "internalType": "string", "name": "_project", "type": "string" },
@@ -10,25 +54,6 @@ const contractABI = [
     "name": "submitHustle",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getHustles",
-    "outputs": [
-      {
-        "components": [
-          { "internalType": "string", "name": "fullName", "type": "string" },
-          { "internalType": "string", "name": "hustleType", "type": "string" },
-          { "internalType": "string", "name": "description", "type": "string" },
-          { "internalType": "address", "name": "submitter", "type": "address" }
-        ],
-        "internalType": "struct ProofOfHustle.Hustle[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   }
 ];
